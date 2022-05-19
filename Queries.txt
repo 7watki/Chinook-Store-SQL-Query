@@ -1,0 +1,53 @@
+/* Query 1 */
+
+SELECT strftime('%Y', i.invoicedate) YEAR,
+                                     sum(il.UnitPrice * il.quantity) total_sales
+FROM InvoiceLine il
+JOIN invoice i ON i.invoiceid = il.invoiceid
+GROUP BY 1
+
+/* Query 2 */
+
+WITH t1 AS
+  (SELECT il.invoiceid,
+          il.trackid,
+          t.name track_name,
+          p.name playlist_name,
+          il.unitprice,
+          il.quantity
+   FROM track t
+   JOIN playlisttrack pt ON pt.trackid = t.TrackId
+   JOIN playlist p ON p.playlistid = pt.playlistid
+   JOIN invoiceline il ON il.trackid = t.trackid
+   GROUP BY il.invoiceid,
+            il.trackid)
+SELECT playlist_name,
+       sum(unitprice*quantity) total_sales
+FROM t1
+GROUP BY playlist_name
+
+/* Query 3 */
+
+SELECT a.title,
+       sum(il.quantity*il.UnitPrice) sales
+FROM Album a
+JOIN Track t ON t.albumid = a.AlbumId
+JOIN invoiceline il ON il.TrackId = t.TrackId
+GROUP BY a.title
+ORDER BY 2 DESC
+LIMIT 10
+
+/* Query 4 */
+
+SELECT strftime('%Y', i.invoicedate) YEAR,
+                                     i.BillingCity,
+                                     sum(il.unitprice*il.Quantity) total_sales
+FROM customer c
+JOIN invoice i ON c.CustomerId = i.CustomerId
+JOIN InvoiceLine il ON il.invoiceid = i.invoiceid
+GROUP BY 1,
+         2
+HAVING YEAR = '2013'
+ORDER BY total_sales DESC
+LIMIT 10)
+
