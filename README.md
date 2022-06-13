@@ -8,3 +8,5 @@ In this project, I performed SQL query on the Chinook Database. The Chinook Data
 the Chinook team with understanding the media in their store, their customers and employees, and their invoice information. 
 To assist you in the queries ahead, the schema for the Chinook Database is provided below. You can see the columns that link tables together via the arrows.
 
+### ERD
+![ERD](chinook_ERD.png)
