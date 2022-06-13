@@ -10,3 +10,4 @@ To assist you in the queries ahead, the schema for the Chinook Database is provi
 
 ### ERD
 ![ERD](chinook_ERD.png)
+
